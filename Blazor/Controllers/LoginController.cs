@@ -52,10 +52,22 @@ namespace Blazor.Controllers
                         return LocalRedirect("/login/El usuario no esta activo");
                     }
                 }
+                else
+                {
+                    return LocalRedirect("/login/Datos de usuario invalidos");
+                }
             }
             catch (Exception ex)
             {
             }
+            return LocalRedirect("/");
+        }
+
+        [HttpGet("/account/logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return LocalRedirect("/login");
         }
     }
 }
